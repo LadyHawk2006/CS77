@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import taylorAlbums from '@/data/taylorAlbums.json';
 
 interface Album {
@@ -139,9 +140,11 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
               <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
                 {selectedAlbum.era} Merch
               </button>
-              <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
-                {selectedAlbum.era} Chat
-              </button>
+              <Link href={`/chat/${selectedAlbum.era}`} className="flex-1">
+                <button className="w-full px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
+                  {selectedAlbum.era} Chat
+                </button>
+              </Link>
             </div>
             
           </div>

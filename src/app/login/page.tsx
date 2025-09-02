@@ -84,7 +84,7 @@ export default function Login({
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 font-mono relative overflow-hidden"
+      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 font-mono relative overflow-hidden pt-24"
       style={{ backgroundImage: "url('/images/cyberpunk3.jpg')" }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-blue-900/40 z-0 animate-pulse-slow"></div>
