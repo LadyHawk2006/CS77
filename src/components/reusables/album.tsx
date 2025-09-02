@@ -134,13 +134,13 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
               <button 
                 onClick={() => handleStreamClick(selectedAlbum.embedUrl)}
                 className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
-                Stream
+                Stream {selectedAlbum.era}
               </button>
               <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
-                Merch
+                {selectedAlbum.era} Merch
               </button>
               <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
-                Community
+                {selectedAlbum.era} Chat
               </button>
             </div>
             
