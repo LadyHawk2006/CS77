@@ -12,14 +12,46 @@ interface Album {
   year: number;
   songs: string[];
   imageUrl: string;
+  embedUrl: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AlbumComponentProps {
   // You can add props here if needed in the future
 }
 
+const PlaylistModal = ({ url, onClose }: { url: string; onClose: () => void }) => {
+  if (!url) return null;
+
+  return (
+    <div className="fixed inset-0 bg-white/10 flex items-center justify-center z-50">
+      <div className="bg-white/40 p-4 rounded-lg shadow-lg w-full max-w-5xl">
+        <div className="flex justify-end">
+          <button onClick={onClose} className="text-red text-2xl">&times;</button>
+        </div>
+        <iframe
+          style={{ borderRadius: '12px' }}
+          src={url}
+          width="100%"
+          height="500"
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  );
+};
+
 const AlbumComponent: React.FC<AlbumComponentProps> = () => {
   const [selectedAlbum, setSelectedAlbum] = useState<Album>(taylorAlbums[0]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [embedUrl, setEmbedUrl] = useState('');
+
+  const handleStreamClick = (url: string) => {
+    setEmbedUrl(url);
+    setModalOpen(true);
+  };
 
   return (
     <>
@@ -77,8 +109,8 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
           </div>
           
           <div className="md:w-2/3">
-            <h3 className="text-2xl font-bold mb-4 text-neon-pink-400">{selectedAlbum.era} Exclusive Content</h3>
-            <p className="mb-6 text-neon-purple-300">
+            <h3 className="text-2xl font-bold mb-4 text-neon-pink-500">{selectedAlbum.era} Exclusive Content</h3>
+            <p className="mb-6 text-white">
               Dive deep into the {selectedAlbum.era.toLowerCase()} with rare tracks, behind-the-scenes footage, and exclusive content only available to Cyber Swifties.
             </p>
             
@@ -99,7 +131,9 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
             
             {/* Three small buttons below the featured tracks */}
             <div className="flex gap-2 mt-18">
-              <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
+              <button 
+                onClick={() => handleStreamClick(selectedAlbum.embedUrl)}
+                className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
                 Stream
               </button>
               <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
@@ -114,33 +148,7 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
         </div>
       </motion.section>
 
-      {/* Exclusive Content */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="bg-translucent bg-opacity-30 backdrop-blur-sm border-2 border-purple-500 rounded-lg p-6 mb-12"
-      >
-        <h3 className="text-2xl font-bold mb-6 text-center text-neon-purple-300">Cyber Swiftie Exclusives</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Info Card Replacements */}
-          <div className="bg-translucent bg-opacity-40 backdrop-blur-sm border-2 border-pink-500 rounded-lg p-6 hover:shadow-neon-pink-lg transition-all">
-            <h4 className="text-xl font-bold mb-3 text-neon-pink-400">Rare Live Performances</h4>
-            <p className="text-neon-purple-300">Access never-before-seen concert footage from every tour.</p>
-          </div>
-          
-          <div className="bg-translucent bg-opacity-40 backdrop-blur-sm border-2 border-purple-500 rounded-lg p-6 hover:shadow-purple-lg transition-all">
-            <h4 className="text-xl font-bold mb-3 text-neon-purple-400">Studio Sessions</h4>
-            <p className="text-neon-purple-300">Go behind the glass in Taylors recording studio.</p>
-          </div>
-          
-          <div className="bg-translucent bg-opacity-40 backdrop-blur-sm border-2 border-cyan-500 rounded-lg p-6 hover:shadow-cyan-lg transition-all">
-            <h4 className="text-xl font-bold mb-3 text-neon-cyan-400">Merch Vault</h4>
-            <p className="text-neon-purple-300">Exclusive merchandise only available to Cyber Swifties.</p>
-          </div>
-        </div>
-      </motion.section>
+      {modalOpen && <PlaylistModal url={embedUrl} onClose={() => setModalOpen(false)} />}
     </>
   );
 };

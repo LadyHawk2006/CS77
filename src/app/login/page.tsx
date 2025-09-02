@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signUp } from "@/utils/supabase/auth";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 export default function Login({
   searchParams,
@@ -11,19 +11,19 @@ export default function Login({
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const formVariants = {
+  const formVariants: Variants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 10 } },
     exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
   };
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     rest: { scale: 1 },
     hover: { scale: 1.05, boxShadow: "0px 0px 12px rgba(0, 255, 255, 0.8)" },
     tap: { scale: 0.95 },
   };
 
-  const titleVariants = {
+  const titleVariants: Variants = {
     hidden: { opacity: 0, scale: 0.8, letterSpacing: "0.2em" },
     visible: {
       opacity: 1,
@@ -38,7 +38,7 @@ export default function Login({
     },
   };
 
-  const letterVariants = {
+  const letterVariants: Variants = {
     hidden: { opacity: 0, y: 20, rotate: -10 },
     visible: {
       opacity: 1,
@@ -48,7 +48,7 @@ export default function Login({
     },
   };
 
-  const spinnerVariants = {
+  const spinnerVariants: Variants = {
     spin: {
       rotate: 360,
       transition: { repeat: Infinity, duration: 1, ease: "linear" },
@@ -87,14 +87,14 @@ export default function Login({
       className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 font-mono relative overflow-hidden"
       style={{ backgroundImage: "url('/images/cyberpunk3.jpg')" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-blue-900/20 z-0 animate-pulse-slow"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-blue-900/40 z-0 animate-pulse-slow"></div>
       <motion.div
         key={isLogin ? "login" : "signup"}
         variants={formVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="w-full max-w-md rounded-2xl p-8 border border-cyan-400 bg-gray-900/5 backdrop-blur-xs shadow-neon-cyan-lg relative z-10 text-neon-cyan-100"
+        className="w-full max-w-md rounded-2xl p-8 border border-cyan-400 bg-gray-900/70 backdrop-blur-xs shadow-neon-cyan-lg relative z-10 text-neon-cyan-100"
       >
         {isLogin
           ? renderAnimatedTitle("FAST LOGIN")

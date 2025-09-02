@@ -7,7 +7,8 @@
     "border": "border-green-400",
     "year": 2006,
     "songs": ["Tim McGraw", "Teardrops on My Guitar"],
-    "imageUrl": "/images/debut.jpg"
+    "imageUrl": "/images/debut.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/7mzrIsaAjnXihW3InK8jfL"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "border": "border-amber-400",
     "year": 2021,
     "songs": ["Love Story", "You Belong With Me"],
-    "imageUrl": "/images/fearless.jpg"
+    "imageUrl": "/images/fearless.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/4hDok0OAJd57SGIT8xuWJH"
   },
   {
     "id": 3,
@@ -27,7 +29,8 @@
     "border": "border-purple-500",
     "year": 2023,
     "songs": ["Mine", "Back to December"],
-    "imageUrl": "/images/speaknow.jpg"
+    "imageUrl": "/images/speaknow.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/5AEDGbliTTfjOB8TSm1sxt"
   },
   {
     "id": 4,
@@ -37,7 +40,8 @@
     "border": "border-red-500",
     "year": 2021,
     "songs": ["All Too Well", "Red"],
-    "imageUrl": "/images/red.jpg"
+    "imageUrl": "/images/red.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/6kZ42qRrzov54LcAk4onW9"
   },
   {
     "id": 5,
@@ -47,7 +51,8 @@
     "border": "border-blue-500",
     "year": 2023,
     "songs": ["Blank Space", "Style"],
-    "imageUrl": "/images/1989.jpg"
+    "imageUrl": "/images/1989.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/1o59UpKw81iHR0HPiSkJR0"
   },
   {
     "id": 6,
@@ -57,7 +62,8 @@
     "border": "border-gray-700",
     "year": 2017,
     "songs": ["Look What You Made Me Do", "Ready For It"],
-    "imageUrl": "/images/reputation.jpg"
+    "imageUrl": "/images/reputation.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/6DEjYFkNZh67HP7R9PSZvv"
   },
   {
     "id": 7,
@@ -67,7 +73,8 @@
     "border": "border-pink-400",
     "year": 2019,
     "songs": ["Lover", "You Need To Calm Down"],
-    "imageUrl": "/images/lover.jpg"
+    "imageUrl": "/images/lover.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/1NAmidJlEaVgA3MpcPFYGq"
   },
   {
     "id": 8,
@@ -77,7 +84,8 @@
     "border": "border-gray-400",
     "year": 2020,
     "songs": ["Cardigan", "My Tears Ricochet"],
-    "imageUrl": "/images/folklore.jpg"
+    "imageUrl": "/images/folklore.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/2fenSS68JI1h4Fo296JfGr"
   },
   {
     "id": 9,
@@ -87,7 +95,8 @@
     "border": "border-gray-600",
     "year": 2020,
     "songs": ["Willow", "Champagne Problems"],
-    "imageUrl": "/images/evermore.jpg"
+    "imageUrl": "/images/evermore.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/2Xoteh7uEpea4TohAZEgog"
   },
   {
     "id": 10,
@@ -97,7 +106,8 @@
     "border": "border-purple-500",
     "year": 2022,
     "songs": ["Anti-Hero", "Lavender Haze"],
-    "imageUrl": "/images/midnights.jpg"
+    "imageUrl": "/images/midnights.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/1fnJ7k0bllNfL1kVdNVW1A"
   },
   {
     "id": 11,
@@ -107,6 +117,7 @@
     "border": "border-gray-300",
     "year": 2024,
     "songs": ["Fortnight", "The Tortured Poets Department"],
-    "imageUrl": "/images/ttpd.jpg"
+    "imageUrl": "/images/ttpd.jpg",
+    "embedUrl": "https://open.spotify.com/embed/album/1Mo4aZ8pdj6L1jx8zSwJnt"
   }
 ]

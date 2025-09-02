@@ -52,7 +52,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t-2 border-pink-500 bg-gray-900 bg-opacity-80 backdrop-blur-sm py-6 text-center">
+      <footer className="relative z-10 border-t-2 border-pink-500 backdrop-blur-sm py-6 text-center">
         <p className="text-neon-pink-300">CyberSwiftie2077© {new Date().getFullYear()}</p>
         <p className="text-neon-purple-300 text-sm">All content is property of Taylor Swift and respective rights holders</p>
       </footer>

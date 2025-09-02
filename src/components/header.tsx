@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/client"; // Use client-side Supabase client
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 export default function Header() {
@@ -38,13 +38,13 @@ export default function Header() {
     }
   };
 
-  const buttonVariants = {
+  const buttonVariants: Variants = {
     rest: { scale: 1 },
     hover: { scale: 1.05, boxShadow: "0px 0px 12px rgba(0, 255, 255, 0.8)" },
     tap: { scale: 0.95 },
   };
 
-  const spinnerVariants = {
+  const spinnerVariants: Variants = {
     spin: {
       rotate: 360,
       transition: { repeat: Infinity, duration: 1, ease: "linear" },
@@ -58,7 +58,7 @@ export default function Header() {
           className="text-2xl font-extrabold text-pink-400 tracking-wide neon-text"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6 }}
         >
           <span className="bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text">
             CYBERHUB

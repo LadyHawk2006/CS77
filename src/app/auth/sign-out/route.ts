@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // Check if a user is logged in
   const { data: { user } } = await supabase.auth.getUser()
