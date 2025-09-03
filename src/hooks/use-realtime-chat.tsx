@@ -20,24 +20,28 @@ export interface ChatMessage {
   createdAt: string;
 }
 
+interface SupabaseMessage {
+  id: string;
+  content: string;
+  user_id: string;
+  username: string;
+  avatar_url?: string;
+  created_at: string;
+}
+
 export function useRealtimeChat({ roomName, username, userId }: UseRealtimeChatProps) {
   const supabase = createClient();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [isConnected, setIsConnected] = useState(true);
+  const isConnected = true;
 
   useEffect(() => {
     const fetchInitialMessages = async () => {
-      const { data, error } = await supabase.rpc('get_messages_with_profiles', {
+      const { data } = await supabase.rpc('get_messages_with_profiles', {
         room_name: roomName,
       });
 
-      if (error) {
-        console.error('Error fetching initial messages:', error);
-        return;
-      }
-
       if (data) {
-        const initialMessages: ChatMessage[] = data.map((msg) => ({
+        const initialMessages: ChatMessage[] = data.map((msg: SupabaseMessage) => ({
           id: msg.id,
           content: msg.content,
           user_id: msg.user_id,

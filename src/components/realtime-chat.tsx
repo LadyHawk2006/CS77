@@ -13,6 +13,7 @@ import { Send } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { ProfileModal } from './profile-modal'
 import { createClient } from '@/utils/supabase/client'
+import { Profile } from '@/types';
 
 interface RealtimeChatProps {
   roomName: string
@@ -32,9 +33,9 @@ export const RealtimeChat = ({
   onMessage,
 }: RealtimeChatProps) => {
   const supabase = createClient();
-  const containerRef = useChatScroll();
+  const { containerRef } = useChatScroll();
   const [newMessage, setNewMessage] = useState('');
-  const [viewingProfile, setViewingProfile] = useState<any>(null);
+  const [viewingProfile, setViewingProfile] = useState<Profile | null>(null);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
   const {
@@ -69,13 +70,12 @@ export const RealtimeChat = ({
 
     setIsLoadingProfile(true);
     try {
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', profileUserId)
         .single();
 
-      if (error) throw error;
       setViewingProfile(data);
     } catch (error) {
       console.error('Error fetching profile:', error);

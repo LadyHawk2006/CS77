@@ -3,12 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { X } from 'lucide-react';
-
-interface Profile {
-  username: string;
-  avatar_url: string;
-  bio: string;
-}
+import { Profile } from '@/types';
 
 interface ProfileModalProps {
   profile: Profile | null;

@@ -29,7 +29,8 @@ export default function Avatar({ uid, url, onUpload }: { uid: string, url: strin
       }
 
       onUpload(filePath);
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
       alert('Error uploading avatar!');
     } finally {
       setUploading(false);

@@ -6,11 +6,13 @@ import { type User } from '@supabase/supabase-js';
 import Avatar from '@/components/avatar';
 import { ProfileSkeleton } from '@/components/profile-skeleton';
 import { motion } from 'framer-motion';
+import { UserAttributes } from '@supabase/supabase-js';
+import { Profile } from '@/types';
 
 export default function ProfilePage() {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [username, setUsername] = useState('');
@@ -29,7 +31,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (user) {
       const fetchProfile = async () => {
-        const { data, error } = await supabase
+        const { data } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
@@ -58,7 +60,7 @@ export default function ProfilePage() {
         updated_at: new Date(),
       };
 
-      const authUpdates: any = {
+      const authUpdates: UserAttributes = {
         data: { username },
       };
 
@@ -77,7 +79,8 @@ export default function ProfilePage() {
 
       alert('Profile updated successfully! If you changed your email, please check your new address for a confirmation link.');
 
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
       alert('Error updating the data!');
     } finally {
       setIsSaving(false);
@@ -102,10 +105,10 @@ export default function ProfilePage() {
           <div className="md:w-1/3 flex justify-center items-start pt-4">
             <Avatar
               uid={user!.id}
-              url={profile?.avatar_url}
+              url={profile?.avatar_url ?? null}
               onUpload={(url) => {
                 supabase.from('profiles').upsert({ id: user!.id, avatar_url: url }).then(({data}) => {
-                  setProfile(data?.[0] ?? { ...profile, avatar_url: url });
+                  setProfile(data?.[0] ?? { id: user!.id, username: profile?.username ?? null, bio: profile?.bio ?? null, avatar_url: url });
                 });
               }}
             />
