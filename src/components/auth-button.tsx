@@ -21,12 +21,15 @@ export function AuthButton() {
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       setIsLoggedIn(!!session?.user);
+      if (event === "SIGNED_IN") {
+        router.refresh();
+      }
     });
 
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, [supabase, router]);
 
   const handleAuth = async () => {
     if (isLoading) return;
@@ -34,6 +37,7 @@ export function AuthButton() {
     try {
       if (isLoggedIn) {
         await supabase.auth.signOut();
+        router.refresh();
         router.push("/login");
       } else {
         router.push("/login");

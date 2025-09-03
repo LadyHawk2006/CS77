@@ -2,8 +2,30 @@
 
 import { AuthButton } from "./auth-button";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setIsLoggedIn(!!user);
+    };
+    checkUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [supabase]);
+
   return (
     <header className="w-full bg-gray-900/5 backdrop-blur-xs border-b border-cyan-400 shadow-neon-cyan-md fixed top-0 z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -13,11 +35,18 @@ export default function Header() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text">
-            CYBERSWIFTIE2077
-          </span>
+          <Link href="/dashboard">
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              CYBERSWIFTIE2077
+            </span>
+          </Link>
         </motion.h1>
         <div className="flex items-center gap-4">
+          {isLoggedIn && (
+            <Link href="/dashboard/profile">
+              <span className="text-white font-bold uppercase tracking-wider">Profile</span>
+            </Link>
+          )}
           <AuthButton />
         </div>
       </div>

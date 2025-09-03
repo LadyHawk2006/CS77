@@ -56,8 +56,9 @@ export async function middleware(request: NextRequest) {
 
   const { data: { session } } = await supabase.auth.getSession()
 
-  // Protect /dashboard route
-  if (request.nextUrl.pathname.startsWith('/dashboard')) {
+  const protectedPaths = ['/dashboard', '/chat']
+
+  if (protectedPaths.some(path => request.nextUrl.pathname.startsWith(path))) {
     if (!session) {
       return NextResponse.redirect(new URL('/login', request.url))
     }

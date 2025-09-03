@@ -151,3 +151,97 @@ CREATE TABLE tloas (
 ALTER TABLE tloas ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow read access to all users" ON tloas FOR SELECT USING (true);
 CREATE POLICY "Allow insert access for authenticated users" ON tloas FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+-- Deeper User Profiles: Allow users to select a cyberpunk avatar or a
+-- favorite Taylor Swift era icon. You could also add a short bio where
+-- they can put their favorite lyric or album.
+
+-- 1. Create a table for public profiles
+CREATE TABLE public.profiles (
+  id UUID NOT NULL PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  updated_at TIMESTAMPTZ,
+  username TEXT UNIQUE,
+  bio TEXT,
+  avatar_url TEXT,
+
+  CONSTRAINT username_length CHECK (char_length(username) >= 3)
+);
+
+-- 2. Set up Row Level Security (RLS)
+-- See https://supabase.com/docs/guides/auth/row-level-security
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Public profiles are viewable by everyone."
+  ON public.profiles FOR SELECT
+  USING ( true );
+
+CREATE POLICY "Users can insert their own profile."
+  ON public.profiles FOR INSERT
+  WITH CHECK ( auth.uid() = id );
+
+CREATE POLICY "Users can update their own profile."
+  ON public.profiles FOR UPDATE
+  USING ( auth.uid() = id );
+
+-- 3. Create a function to automatically create a profile for new users
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id)
+  VALUES (new.id);
+  RETURN new;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 4. Create a trigger that calls the function when a new user signs up
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
+
+-- 5. Create a storage bucket for avatars
+-- See https://supabase.com/docs/guides/storage
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('avatars', 'avatars', true)
+ON CONFLICT (id) DO NOTHING; -- Fails silently if the bucket already exists
+
+-- 6. Set up RLS policies for the avatars bucket
+CREATE POLICY "Avatar images are publicly accessible."
+  ON storage.objects FOR SELECT
+  USING ( bucket_id = 'avatars' );
+
+CREATE POLICY "Anyone can upload an avatar."
+  ON storage.objects FOR INSERT
+  WITH CHECK ( bucket_id = 'avatars' AND auth.role() = 'authenticated' );
+
+CREATE POLICY "A user can update their own avatar."
+  ON storage.objects FOR UPDATE
+  USING ( auth.uid() = owner )
+  WITH CHECK ( bucket_id = 'avatars' );
+
+CREATE OR REPLACE FUNCTION get_messages_with_profiles(room_name TEXT)
+RETURNS TABLE (
+  id UUID,
+  created_at TIMESTAMPTZ,
+  content TEXT,
+  user_id UUID,
+  username TEXT,
+  avatar_url TEXT
+)
+AS $$
+BEGIN
+  RETURN QUERY EXECUTE format('SELECT
+      t.id,
+      t.created_at,
+      t.content,
+      t.user_id,
+      COALESCE(p.username, t.username, ''Anonymous'') AS username,
+      p.avatar_url
+    FROM
+      public.%I AS t
+    LEFT JOIN
+      public.profiles AS p ON t.user_id = p.id
+    ORDER BY
+      t.created_at ASC;
+  ', room_name);
+END;
+$$ LANGUAGE plpgsql;
