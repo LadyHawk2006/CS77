@@ -43,13 +43,13 @@ export default function Avatar({ uid, url, onUpload }: { uid: string, url: strin
         <Image
           src={publicUrl}
           alt="Avatar"
-          className="rounded-full"
-          width={150}
-          height={150}
+          className="rounded-full w-24 h-24 sm:w-32 sm:h-32 object-cover"
+          width={96}
+          height={96}
         />
       ) : (
-        <div className="w-[150px] h-[150px] bg-gray-800 rounded-full flex items-center justify-center">
-          <span className="text-gray-500">No Avatar</span>
+        <div className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-800 rounded-full flex items-center justify-center">
+          <span className="text-gray-500 text-2xl sm:text-4xl">No Avatar</span>
         </div>
       )}
       <div className="mt-4">

@@ -26,7 +26,7 @@ const PlaylistModal = ({ url, onClose }: { url: string; onClose: () => void }) =
 
   return (
     <div className="fixed inset-0 bg-white/10 flex items-center justify-center z-50">
-      <div className="bg-white/40 p-4 rounded-lg shadow-lg w-full max-w-5xl">
+      <div className="bg-white/40 p-4 rounded-lg shadow-lg w-full max-w-sm sm:max-w-xl md:max-w-5xl h-[80vh] max-h-[80vh] flex flex-col">
         <div className="flex justify-end">
           <button onClick={onClose} className="text-red text-2xl">&times;</button>
         </div>
@@ -34,10 +34,11 @@ const PlaylistModal = ({ url, onClose }: { url: string; onClose: () => void }) =
           style={{ borderRadius: '12px' }}
           src={url}
           width="100%"
-          height="500"
+          height="100%"
           frameBorder="0"
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy"
+          className="flex-grow"
         ></iframe>
       </div>
     </div>
@@ -88,13 +89,13 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
         key={selectedAlbum.id}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="bg-translucent bg-opacity-20 backdrop-blur-sm border-2 border-pink-500 rounded-lg p-6 mb-12"
+        className="bg-translucent bg-opacity-20 backdrop-blur-sm border-2 border-pink-500 rounded-lg p-4 sm:p-6 mb-12"
       >
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/3">
             {/* Album Card with Next Image */}
             <div className="bg-translucent bg-opacity-20 backdrop-blur-sm rounded-lg overflow-hidden border-2 border-pink-500">
-              <div className="relative w-full h-72">
+              <div className="relative w-full h-48 sm:h-64 md:h-72">
                 <Image 
                   src={selectedAlbum.imageUrl} 
                   alt={selectedAlbum.title}
@@ -131,17 +132,17 @@ const AlbumComponent: React.FC<AlbumComponentProps> = () => {
             </ul>
             
             {/* Three small buttons below the featured tracks */}
-            <div className="flex gap-2 mt-18">
+            <div className="flex flex-wrap gap-2 mt-8 sm:mt-18">
               <button 
                 onClick={() => handleStreamClick(selectedAlbum.embedUrl)}
-                className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
+                className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-sm sm:text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
                 Stream {selectedAlbum.era}
               </button>
-              <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
+              <button className="flex-1 px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-sm sm:text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
                 {selectedAlbum.era} Merch
               </button>
               <Link href={`/chat/${selectedAlbum.era}`} className="flex-1">
-                <button className="w-full px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
+                <button className="w-full px-4 py-2 bg-translucent bg-opacity-20 backdrop-blur-sm border {selectedAlbum.border} rounded-lg font-medium text-sm sm:text-md text-cyan-500 uppercase tracking-wider glow-button transition-colors hover:bg-opacity-60">
                   {selectedAlbum.era} Chat
                 </button>
               </Link>

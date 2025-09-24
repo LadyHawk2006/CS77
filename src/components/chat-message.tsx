@@ -7,7 +7,6 @@ interface ChatMessageItemProps {
   message: ChatMessage;
   isOwnMessage: boolean;
   showHeader: boolean;
-  albumColor?: string;
   onViewProfile: (userId: string) => void;
 }
 
@@ -34,7 +33,7 @@ const UserAvatar = ({ avatar_url, username, onViewProfile, userId }: { avatar_ur
   );
 };
 
-export const ChatMessageItem = ({ message, isOwnMessage, showHeader, albumColor, onViewProfile }: ChatMessageItemProps) => {
+export const ChatMessageItem = ({ message, isOwnMessage, showHeader, onViewProfile }: ChatMessageItemProps) => {
   const avatar = (
     <div className="w-10 h-10 self-end">
       {showHeader && <UserAvatar avatar_url={message.user.avatar_url} username={message.user.name} onViewProfile={onViewProfile} userId={message.user_id} />}
@@ -70,10 +69,15 @@ export const ChatMessageItem = ({ message, isOwnMessage, showHeader, albumColor,
         )}
         <div
           className={cn(
-            'py-2 px-3 rounded-xl text-sm w-fit text-white',
-            isOwnMessage ? 'bg-primary text-primary-foreground' : `bg-gradient-to-r ${albumColor}`
+            'py-2 px-4 rounded-2xl text-sm w-fit text-white/90 backdrop-blur-lg shadow-lg',
+            isOwnMessage
+              ? 'bg-white/10 border border-white/20'
+              : 'border'
           )}
-        >
+          style={!isOwnMessage ? {
+            backgroundColor: `hsla(var(--album-color-from), 0.2)`,
+            borderColor: `hsla(var(--album-color-to), 0.4)`,
+          } : {}}>
           {message.content}
         </div>
       </div>

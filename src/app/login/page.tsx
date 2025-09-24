@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signUp } from "@/utils/supabase/auth";
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Login({
   searchParams,
@@ -10,65 +10,6 @@ export default function Login({
 }) {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-
-  const formVariants: Variants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 10 } },
-    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } },
-  };
-
-  const buttonVariants: Variants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05, boxShadow: "0px 0px 12px rgba(0, 255, 255, 0.8)" },
-    tap: { scale: 0.95 },
-  };
-
-  const titleVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.8, letterSpacing: "0.2em" },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      letterSpacing: "0.3em",
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-        when: "beforeChildren",
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const letterVariants: Variants = {
-    hidden: { opacity: 0, y: 20, rotate: -10 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
-
-  const spinnerVariants: Variants = {
-    spin: {
-      rotate: 360,
-      transition: { repeat: Infinity, duration: 1, ease: "linear" },
-    },
-  };
-
-  const renderAnimatedTitle = (text: string) => (
-    <motion.h1
-      className="text-4xl font-extrabold text-center text-pink-400 mb-8 tracking-wide"
-      variants={titleVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      {text.split("").map((char, index) => (
-        <motion.span key={index} variants={letterVariants}>
-          {char}
-        </motion.span>
-      ))}
-    </motion.h1>
-  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -83,140 +24,125 @@ export default function Login({
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 font-mono relative overflow-hidden pt-24"
-      style={{ backgroundImage: "url('/images/cyberpunk3.jpg')" }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-blue-900/40 z-0 animate-pulse-slow"></div>
-      <motion.div
-        key={isLogin ? "login" : "signup"}
-        variants={formVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="w-full max-w-md rounded-2xl p-8 border border-cyan-400 bg-gray-900/70 backdrop-blur-xs shadow-neon-cyan-lg relative z-10 text-neon-cyan-100"
-      >
-        {isLogin
-          ? renderAnimatedTitle("FAST LOGIN")
-          : renderAnimatedTitle("JOIN THE COMMUNITY")}
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email" className="text-md font-medium text-neon-cyan-200 mb-2 block">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text">DIGITAL_ID</span>
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="username@domain.ext"
-              required
-              className="mt-1 w-full rounded-lg px-5 py-3 border border-cyan-600 bg-gray-900/5 text-neon-cyan-100 placeholder-cyan-400 focus:ring-3 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ease-in-out glow-input"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="text-md font-medium text-neon-cyan-200 mb-2 block">
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 text-transparent bg-clip-text">SECURE_KEY</span>
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••••••"
-              required
-              minLength={6}
-              className="mt-1 w-full rounded-lg px-5 py-3 border border-cyan-600 bg-gray-900/5 text-neon-cyan-100 placeholder-cyan-400 focus:ring-3 focus:ring-blue-500 focus:border-transparent transition-all duration-300 ease-in-out glow-input"
-            />
-          </div>
-          <motion.button
-            type="submit"
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
-            disabled={isLoading}
-            className={`mt-6 bg-white/10 text-white rounded-lg px-6 py-3 font-bold uppercase tracking-wider shadow-sm hover:shadow-neon-cyan-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center ${
-              isLoading ? "opacity-75 cursor-not-allowed" : ""
-            }`}
-          >
-            {isLoading ? (
-              <>
-                <motion.svg
-                  variants={spinnerVariants}
-                  animate="spin"
-                  className="w-5 h-5 mr-2"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    fill="none"
-                    strokeDasharray="15 85"
-                  />
-                </motion.svg>
-                PROCESSING...
-              </>
-            ) : (
-              <>{isLogin ? "CONNECT TO SITE" : "INITIALIZE PROFILE"}</>
-            )}
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-center text-white hover:text-white font-medium mt-4 text-sm transition-colors duration-300 neon-text border border-[#0ff] rounded-md px-3 py-1"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            disabled={isLoading}
-          >
-            {isLogin ? "NEW? REGISTER HERE" : "EXISTING USER? LOG IN"}
-          </motion.button>
-          {searchParams?.message && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-4 p-4 bg-red-900/5 backdrop-blur-xs text-red-300 text-center rounded-lg border border-red-700 neon-error"
+    <main className="w-full min-h-screen bg-[#0A0F19] text-gray-300 font-mono p-8 flex items-center justify-center">
+      {/* Background Effects */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute w-[50vw] h-[50vh] bg-pink-500/20 -top-1/4 -left-1/4 rounded-full filter blur-[150px] animate-pulse-slow"></div>
+        <div className="absolute w-[50vw] h-[50vh] bg-sky-500/20 -bottom-1/4 -right-1/4 rounded-full filter blur-[150px] animate-pulse-slow animation-delay-2000"></div>
+        <div className="fixed top-0 left-0 w-full h-full bg-[url('/grid.svg')] bg-repeat opacity-20"></div>
+      </div>
+
+      <div className="relative z-10 max-w-md w-full">
+        <motion.div
+          key={isLogin ? "login" : "signup"}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className="p-8 rounded-lg bg-black/30 border border-pink-400/30 backdrop-blur-sm"
+        >
+          <header className="text-center mb-8">
+            <h1 className="font-display text-4xl font-bold mb-2 tracking-widest uppercase">
+              <span className="text-pink-400" style={{ textShadow: '0 0 10px #ec4899, 0 0 20px #ec4899' }}>{isLogin ? 'Log In' : 'Sign Up'}</span>
+            </h1>
+            <p className="text-sm text-cyan-400">{isLogin ? '[Enter the Grid]' : '[Create Your Digital ID]'}</p>
+          </header>
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="email" className="text-sm font-bold text-sky-400 uppercase tracking-wider">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                className="w-full p-3 mt-2 bg-sky-400/10 border border-sky-400/50 rounded-md focus:ring-2 focus:ring-sky-400 focus:outline-none transition"
+              />
+            </div>
+            <div>
+              <label htmlFor="password" className="text-sm font-bold text-pink-400 uppercase tracking-wider">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                minLength={6}
+                className="w-full p-3 mt-2 bg-pink-400/10 border border-pink-400/50 rounded-md focus:ring-2 focus:ring-pink-400 focus:outline-none transition"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="cyber-button w-full"
             >
+              {isLoading ? 'Processing...' : (isLogin ? '[ Log In ]' : '[ Sign Up ]')}
+              <span className="cyber-button__glitch"></span>
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setIsLogin(!isLogin)}
+              disabled={isLoading}
+              className="text-sm text-gray-400 hover:text-pink-400 transition"
+            >
+              {isLogin ? 'Need an account? Sign up' : 'Already have an account? Log in'}
+            </button>
+          </div>
+
+          {searchParams?.message && (
+            <p className="mt-4 p-3 bg-red-500/20 text-red-300 text-center rounded-md border border-red-500/50">
               {searchParams.message}
-            </motion.p>
+            </p>
           )}
-        </form>
-      </motion.div>
-      <style jsx>{`
-        .text-neon-cyan-400 { color: #00f7ff; }
-        .text-neon-cyan-200 { color: #80faff; }
-        .text-neon-cyan-100 { color: #b3fdff; }
-        .text-neon-blue-300 { color: #4bb7ff; }
-        .border-cyan-600 { border-color: #008b8b; }
-        .border-cyan-400 { border-color: #00b7eb; }
-        .shadow-neon-cyan-lg { box-shadow: 0 0 25px rgba(0, 247, 255, 0.7); }
-        .shadow-neon-cyan-md { box-shadow: 0 0 15px rgba(0, 247, 255, 0.5); }
+        </motion.div>
+      </div>
 
-        .glow-input:focus {
-          box-shadow: 0 0 10px rgba(75, 183, 255, 0.8), 0 0 20px rgba(0, 247, 255, 0.5);
+      <style jsx global>{`
+        .font-display {
+          font-family: var(--font-orbitron);
         }
-
+        .font-mono {
+          font-family: var(--font-share-tech-mono);
+        }
         .animate-pulse-slow {
-          animation: pulse-slow 6s infinite alternate;
+          animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-
-        @keyframes pulse-slow {
-          from { opacity: 0.4; }
-          to { opacity: 0.6; }
+        .animation-delay-2000 {
+          animation-delay: -2s;
         }
-
-        .neon-text {
-          text-shadow: 0 0 8px rgba(0, 247, 255, 0.7);
+        .cyber-button {
+          font-family: var(--font-share-tech-mono);
+          position: relative;
+          padding: 12px 24px;
+          border: 1px solid #ec4899;
+          color: #ec4899;
+          background: transparent;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          transition: all 0.3s;
+          overflow: hidden;
         }
-
-        .neon-error {
-          text-shadow: 0 0 6px rgba(252, 165, 165, 0.6);
+        .cyber-button:hover {
+          background: #ec4899;
+          color: #0A0F19;
+          box-shadow: 0 0 20px #ec4899;
         }
-
-        .backdrop-blur-xs {
-          backdrop-filter: blur(2px);
+        .cyber-button__glitch::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: -2px;
+          width: 100%;
+          height: 2px;
+          background: #0A0F19;
+          animation: glitch-top 1s linear infinite;
+        }
+        @keyframes glitch-top {
+          2%, 64% { transform: translate(2px, -2px); }
+          4%, 60% { transform: translate(-2px, 2px); }
+          62% { transform: translate(12px, -1px) skewX(22deg); }
         }
       `}</style>
-    </div>
+    </main>
   );
 }

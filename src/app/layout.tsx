@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Orbitron, Share_Tech_Mono } from "next/font/google";
 import "./globals.css";
-import { BackgroundSettingsProvider } from "@/hooks/use-background-settings";
-import ClientLayoutWrapper from "@/components/client-layout-wrapper";
 import Header from "@/components/header";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +15,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+});
+
+const shareTechMono = Share_Tech_Mono({
+  variable: "--font-share-tech-mono",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
-  title: "The Swiftie FanSite",
+  title: "CS2077",
   description: "A fan site for Swifties.",
 };
 
@@ -28,14 +40,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${shareTechMono.variable} antialiased bg-[#0A0F19] text-gray-300 font-mono`}
       >
-        <BackgroundSettingsProvider>
-          <ClientLayoutWrapper>
-            <Header />
-            {children}
-          </ClientLayoutWrapper>
-        </BackgroundSettingsProvider>
+        <Header />
+        <main>{children}</main>
+
       </body>
     </html>
   );

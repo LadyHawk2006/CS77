@@ -10,10 +10,10 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Send } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
-import { ProfileModal } from './profile-modal'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Profile } from '@/types';
+import { useRouter } from 'next/navigation';
 
 interface RealtimeChatProps {
   roomName: string
@@ -33,10 +33,8 @@ export const RealtimeChat = ({
   onMessage,
 }: RealtimeChatProps) => {
   const supabase = createClient();
-  const { containerRef } = useChatScroll();
+  const router = useRouter();
   const [newMessage, setNewMessage] = useState('');
-  const [viewingProfile, setViewingProfile] = useState<Profile | null>(null);
-  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
   const {
     messages: allMessages,
@@ -47,6 +45,9 @@ export const RealtimeChat = ({
     username,
     userId,
   });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  useChatScroll(containerRef, allMessages);
 
   useEffect(() => {
     if (onMessage) {
@@ -65,28 +66,12 @@ export const RealtimeChat = ({
     [newMessage, isConnected, sendMessage]
   );
 
-  const handleViewProfile = async (profileUserId: string) => {
-    if (isLoadingProfile) return;
-
-    setIsLoadingProfile(true);
-    try {
-      const { data } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', profileUserId)
-        .single();
-
-      setViewingProfile(data);
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-    } finally {
-      setIsLoadingProfile(false);
-    }
+  const handleViewProfile = (profileUserId: string) => {
+    router.push(`/dm/${profileUserId}`);
   };
 
   return (
     <>
-      <ProfileModal profile={viewingProfile} onClose={() => setViewingProfile(null)} />
       <div className="flex flex-col h-full w-full bg-transparent text-foreground antialiased">
         {/* Messages */}
         <div ref={containerRef} className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar">

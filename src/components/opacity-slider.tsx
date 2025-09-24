@@ -18,7 +18,7 @@ export function OpacitySlider() {
         step="0.01"
         value={opacity}
         onChange={(e) => setOpacity(parseFloat(e.target.value))}
-        className="w-32"
+        className="w-full max-w-xs"
       />
     </div>
   );
