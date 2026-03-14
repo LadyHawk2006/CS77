@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { type User } from '@supabase/supabase-js';
 import { Profile } from '@/types';
@@ -8,12 +8,13 @@ import { ProfileSkeleton } from '@/components/profile-skeleton';
 import { useRouter } from 'next/navigation';
 
 interface RequestPageParams {
-  params: {
+  params: Promise<{
     userId: string;
-  };
+  }>;
 }
 
-export default function RequestPage({ params }: RequestPageParams) {
+export default function RequestPage({ params: paramsPromise }: RequestPageParams) {
+  const params = use(paramsPromise);
   const supabase = createClient();
   const router = useRouter();
   const { userId: senderId } = params;

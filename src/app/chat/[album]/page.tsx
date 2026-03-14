@@ -1,13 +1,12 @@
-""
-
 import { RealtimeChat } from "@/components/realtime-chat";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import taylorAlbums from "@/data/taylorAlbums.json";
 
 export const dynamic = 'force-dynamic';
 
-export default async function ChatPage({ params }: { params: { album: string } }) {
+export default async function ChatPage(props: { params: Promise<{ album: string }> }) {
+  const params = await props.params;
   const supabase = await createClient();
 
   const {

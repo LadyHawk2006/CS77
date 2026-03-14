@@ -1,13 +1,14 @@
 "use client";
 import { signIn, signUp } from "@/utils/supabase/auth";
-import { useState } from "react";
+import { useState, use } from "react";
 import { motion } from "framer-motion";
 
 export default function Login({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams: Promise<{ message: string }>;
 }) {
+  const params = use(searchParams);
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -89,9 +90,9 @@ export default function Login({
             </button>
           </div>
 
-          {searchParams?.message && (
+          {params?.message && (
             <p className="mt-4 p-3 bg-red-500/20 text-red-300 text-center rounded-md border border-red-500/50">
-              {searchParams.message}
+              {params.message}
             </p>
           )}
         </motion.div>

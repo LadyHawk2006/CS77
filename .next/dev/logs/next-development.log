@@ -1,28 +1,16 @@
-[00:00:02.427] Server  LOG     
-[00:00:02.428] Server  LOG       We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
-[00:00:02.428] Server  LOG       The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
-
-[00:00:02.428] Server  LOG       	- include was updated to add '.next/dev/types/**/*.ts'
-[00:00:02.428] Server  LOG     
-[00:00:02.428] Server  LOG       The following mandatory changes were made to your tsconfig.json:
-
-[00:00:02.428] Server  LOG       	- jsx was set to react-jsx (next.js uses the React automatic runtime)
-[00:00:02.429] Server  LOG     
-[00:00:02.447] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.715] Server  LOG     ✓ Ready in 2.3s
-[00:00:20.854] Server  ERROR   ⨯ Error: Your project's URL and Key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:00:25.137] Browser ERROR   uncaughtError: Error: Your project's URL and Key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
-[00:00:26.896] Server  LOG     ○ Compiling /_not-found/page ...
-[00:00:35.779] Server  ERROR   ⨯ Error: @supabase/ssr: Your project's URL and API key are required to create a Supabase client!
-
-Check your Supabase project's API settings to find these values
-
-https://supabase.com/dashboard/project/_/settings/api
+[00:00:02.248] Server  LOG     ✓ Ready in 1860ms
+[00:00:15.091] Server  LOG     ○ Compiling /dashboard ...
+[00:00:17.185] Browser WARN    Image with src "/images/debut.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:20.599] Browser WARN    Image with src "/images/evermore.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:21.548] Browser WARN    Image with src "/images/midnights.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:27.167] Browser WARN    Image with src "/images/debut.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:34.036] Browser WARN    Image with src "/images/midnights.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:41.619] Browser WARN    Image with src "/images/ttpd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:58.634] Browser WARN    Image with src "/images/evermore.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:03.360] Browser WARN    Image with src "/images/reputation.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:13.773] Server  LOG     ○ Compiling /chat/[album] ...
+[00:01:21.562] Browser WARN    Image with src "https://cokfqesxuopkwogrqigd.supabase.co/storage/v1/object/public/avatars/21b0ab8e-0841-42a0-983a-eb114fb7d940-0.9213254612866307.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:01:22.848] Browser WARN    Image with src "https://cokfqesxuopkwogrqigd.supabase.co/storage/v1/object/public/avatars/880532fe-d210-41a1-9182-7408be6c0d5a-0.589003031920528.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:06.068] Browser WARN    Image with src "https://cokfqesxuopkwogrqigd.supabase.co/storage/v1/object/public/avatars/21b0ab8e-0841-42a0-983a-eb114fb7d940-0.9213254612866307.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:06.068] Browser WARN    Image with src "https://cokfqesxuopkwogrqigd.supabase.co/storage/v1/object/public/avatars/880532fe-d210-41a1-9182-7408be6c0d5a-0.589003031920528.jpg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:02:32.106] Browser WARN    Image with src "/images/debut.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes

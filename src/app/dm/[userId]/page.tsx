@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, use } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import { Profile } from '@/types';
@@ -16,7 +16,8 @@ interface Message {
   sender_avatar_url: string;
 }
 
-export default function DMChatPage({ params }: { params: { userId: string } }) {
+export default function DMChatPage({ params: paramsPromise }: { params: Promise<{ userId: string }> }) {
+  const params = use(paramsPromise);
   const { userId: recipientId } = params;
   const supabase = createClient();
   const router = useRouter();

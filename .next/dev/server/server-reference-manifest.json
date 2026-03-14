@@ -1,5 +1,36 @@
 {
-  "node": {},
+  "node": {
+    "402d3e78553c57fa6474e0d3d616f4d95d10fe0324": {
+      "workers": {
+        "app/login/page": {
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/utils/supabase/auth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "signIn",
+          "filename": "src/utils/supabase/auth.ts"
+        }
+      },
+      "layer": {
+        "app/login/page": "action-browser"
+      },
+      "filename": "src/utils/supabase/auth.ts",
+      "exportedName": "signIn"
+    },
+    "40e287e73da485f1e49e9897e54cfc12c4c6a5a89b": {
+      "workers": {
+        "app/login/page": {
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/utils/supabase/auth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "signUp",
+          "filename": "src/utils/supabase/auth.ts"
+        }
+      },
+      "layer": {
+        "app/login/page": "action-browser"
+      },
+      "filename": "src/utils/supabase/auth.ts",
+      "exportedName": "signUp"
+    }
+  },
   "edge": {},
   "encryptionKey": "OnlS8i5wxLHjWF3q1zSs5VS8JKZfZPuwCbevovd+4CM="
 }
