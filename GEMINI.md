@@ -71,4 +71,4 @@ npm run lint
 *   **Styling:** The project uses Tailwind CSS for styling. Custom styles, including neon and glow effects, are defined in `src/app/page.tsx`.
 *   **Components:** Reusable components are located in the `src/components` directory.
 *   **Authentication:** Authentication is handled by Supabase. The `/dashboard` route is protected and requires a logged-in user.
-*   **Environment Variables:** The application requires Supabase environment variables to be set up for the client and server. These include `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY`.
+*   **Environment Variables:** The application requires Supabase environment variables (2025/2026 format) to be set up. These include `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY`.
